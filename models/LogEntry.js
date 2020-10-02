@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-var {Schema} = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 
 // Validator function
@@ -7,16 +7,19 @@ const slugValidator = (val) => {
     return val == '/^[\w\-]+$/i';   // may use ===
 };
 
-var logEntrySchema = new Schema({
+let logEntrySchema = new Schema({   
     slug: {
         type: String,
         trim: true,
         // use validator...
-        validate: slugValidator
+        //validate: slugValidator
     },
     url: {
         type: String,
         required: true,
+    },
+    redirects: {
+        type: Number,
     },
 });
 

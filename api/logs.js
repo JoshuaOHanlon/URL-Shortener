@@ -7,20 +7,15 @@ const LogEntry = require('../models/LogEntry.js');
 const router = Router();
 
 
-router.get('/', (req, res) => {
-    res.json({
-        message: '🌎',
-    });
-});
-
-router.post('/url', slowDown({  // Check if can use slowDown/rateLimit on this server...
-    windowMs: 60 * 1000,
+router.post('/', //slowDown({  // Check if can use slowDown/rateLimit on this server...
+  /*   windowMs: 60 * 1000,
     delayAfter: 1,
-    delayMs: 500,
-}), rateLimit({
+    delayMs: 500, */
+/* }), rateLimit({
     windowMs: 60 * 1000,
-    max: 1,
-}), async (req, res, next) => {
+    max: 1, */
+//}), 
+async (req, res, next) => {
     try{
         let { slug, url } = req.body;
         //const logEntry = new LogEntry({ slug, url })
@@ -37,7 +32,7 @@ router.post('/url', slowDown({  // Check if can use slowDown/rateLimit on this s
             }
         }
         slug = slug.toLowerCase();
-        const logEntry = new LogEntry({ slug, url })
+        const logEntry = new LogEntry({ slug, url, redirects: 0})
         const newEntry = await logEntry.save();
         res.json(newEntry);
     }catch(error){
